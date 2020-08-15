@@ -10,19 +10,49 @@ import java.util.List;
  */
 public class ArrayMultiset extends RmitMultiset
 {
-
+	private String[] array = null;
+	private int length = 1;
+	
     @Override
 	public void add(String elem) {
-        // Implement me!
+    	if (array == null) {
+    		array = new String[length];
+    		array[length - 1] = elem; 
+    	} else {
+    		length++;
+    		
+    		String[] newArray = new String[length];
+    		
+    		for (int i = 0; i < length - 1; i++) {
+    			newArray[i] = array[i];
+    		}
+    		
+    		newArray[length - 1] = elem;
+    		
+    		array = new String[length];
+    		
+    		for (int j = 0; j < length; j++) {
+    			array[j] = newArray[j];
+    		}
+    	}
     } // end of add()
 
 
     @Override
 	public int search(String elem) {
-        // Implement me!
-
-        // Placeholder, please update.
-        return searchFailed;
+    	int instance = 0;
+    	
+    	for (int i = 0; i < array.length; i++) {
+    		if (array[i].equals(elem)) {
+    			instance++;
+    		}
+    	}
+    	
+    	if (instance == 0) {
+    		instance = searchFailed;
+    	}
+    	
+        return instance;
     } // end of search()
 
 
@@ -36,24 +66,87 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public boolean contains(String elem) {
-        // Implement me!
-
+        boolean check = false;
+    	
+        for (int i = 0; i < array.length; i++) {
+        	if (array[i].equals(elem)) {
+        		check = true;
+        	}
+        }
+        
         // Placeholder, please update.
-        return false;
+        return check;
     } // end of contains()
 
 
     @Override
 	public void removeOne(String elem) {
-        // Implement me!
+    	int position = 0;
+    	
+        if (array != null) {
+        	for (int i = 0; i < array.length; i++) {
+        		if (array[i].equals(elem)) {
+        			position = i;
+        		}
+        	}
+        	
+        	length--;
+        	
+        	array[position] = null;
+        	
+        	String[] newArray = new String[length];
+        	
+        	int iterate = 0;
+            
+            for (int j = 0; j < newArray.length; j++) {
+            	if (array[j] != null) {
+            		newArray[iterate] = array[j];
+            		iterate++;
+            	}
+            }
+            
+            array = new String[length];
+            
+            for (int k = 0; k < array.length; k++) {
+            	array[k] = newArray[k];
+            }
+        }
+        
     } // end of removeOne()
 
 
     @Override
 	public String print() {
-
-        // Placeholder, please update.
-        return new String();
+    	int position = 0;
+    	int total = 0;
+    	String printed = "";
+    	SortStrings sorter = new SortStrings();
+    	
+    	String[] newArray = new String[array.length];
+    	
+    	for (int i = 0; i < array.length; i++) {
+    		newArray[i] = array[i];
+    	}
+    	
+        for (int i = 0; i < array.length; i++) {
+        	if (array[i] != null) {
+        		for (int j = position; j < array.length; j++) {
+            		// if string doesn't exist yet
+            		if (array[position] != null) {
+            			if (array[i].equals(array[position])) {
+            				total++;
+            				array[position] = null;
+            			}
+            		}
+            	}
+        		printed = array[i] + Integer.toString(total) + "\n";
+        	}
+        	position++;
+        }
+        
+        String sorted = sorter.Sort(printed);
+        
+        return sorted;
     } // end of OrderedPrint
 
 
