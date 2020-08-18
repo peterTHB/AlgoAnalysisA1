@@ -15,24 +15,39 @@ public class ArrayMultiset extends RmitMultiset
 	
     @Override
 	public void add(String elem) {
+    	int instance = 1;
+    	int position = -1;
+    	// Add string:instance
     	if (array == null) {
     		array = new String[length];
-    		array[length - 1] = elem; 
+    		array[length - 1] = elem + ":" + Integer.toString(instance); 
     	} else {
     		length++;
     		
     		String[] newArray = new String[length];
     		
-    		for (int i = 0; i < length - 1; i++) {
-    			newArray[i] = array[i];
+    		for (int i = 0; i < length; i++) {
+    			String[] arrayString = array[i].split(":");
+    			if (arrayString[0] == elem) {
+    				position = i;
+    				instance = Integer.parseInt(arrayString[1]) + 1;
+    			}
     		}
     		
-    		newArray[length - 1] = elem;
-    		
-    		array = new String[length];
-    		
-    		for (int j = 0; j < length; j++) {
-    			array[j] = newArray[j];
+    		if (position != -1) {
+    			array[position] = elem + ":" + instance;
+    		} else {
+	        	for (int i = 0; i < length - 1; i++) {
+	    			newArray[i] = array[i];
+	    		}
+	    		
+	    		newArray[length - 1] = elem + ":" + instance;
+	    		
+	    		array = new String[length];
+	    		
+	    		for (int j = 0; j < length; j++) {
+	    			array[j] = newArray[j];
+	    		}
     		}
     	}
     } // end of add()
@@ -43,8 +58,9 @@ public class ArrayMultiset extends RmitMultiset
     	int instance = 0;
     	
     	for (int i = 0; i < array.length; i++) {
-    		if (array[i].equals(elem)) {
-    			instance++;
+    		String[] arrayString = array[i].split(":");
+    		if (arrayString[0].equals(elem)) {
+    			instance = Integer.parseInt(arrayString[1]);
     		}
     	}
     	
@@ -58,7 +74,8 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
     public List<String> searchByInstance(int instanceCount) {
-
+    	
+    	
         // Placeholder, please update.
         return null;
     } // end of searchByInstance
@@ -69,7 +86,8 @@ public class ArrayMultiset extends RmitMultiset
         boolean check = false;
     	
         for (int i = 0; i < array.length; i++) {
-        	if (array[i].equals(elem)) {
+        	String[] arrayString = array[i].split(":");
+        	if (arrayString[0].equals(elem)) {
         		check = true;
         	}
         }
@@ -117,34 +135,9 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public String print() {
-    	int position = 0;
-    	int total = 0;
-    	String printed = "";
     	SortStrings sorter = new SortStrings();
-    	
-    	String[] newArray = new String[array.length];
-    	
-    	for (int i = 0; i < array.length; i++) {
-    		newArray[i] = array[i];
-    	}
-    	
-        for (int i = 0; i < array.length; i++) {
-        	if (array[i] != null) {
-        		for (int j = position; j < array.length; j++) {
-            		// if string doesn't exist yet
-            		if (array[position] != null) {
-            			if (array[i].equals(array[position])) {
-            				total++;
-            				array[position] = null;
-            			}
-            		}
-            	}
-        		printed = array[i] + Integer.toString(total) + "\n";
-        	}
-        	position++;
-        }
         
-        String sorted = sorter.Sort(printed);
+        String sorted = sorter.sortArray(array);
         
         return sorted;
     } // end of OrderedPrint
@@ -152,9 +145,12 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public String printRange(String lower, String upper) {
-
+    	SortStrings sorter = new SortStrings();
+    	
+    	String sorted = sorter.sortArrayRange(array, lower, upper);
+    	
         // Placeholder, please update.
-        return new String();
+        return sorted;
     } // end of printRange()
 
 
