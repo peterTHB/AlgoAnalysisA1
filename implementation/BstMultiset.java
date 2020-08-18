@@ -58,7 +58,7 @@ public class BstMultiset extends RmitMultiset
     } // end of search()
     
     private int searchRecursive(Node root, String data) {
-    	int instance = -1;
+    	int instance = searchFailed;
     	
     	if (root != null) {
         	String[] getData = root.getData().split(":");
@@ -177,7 +177,8 @@ public class BstMultiset extends RmitMultiset
     	String[] getData = root.getData().split(":");
     	
     	if (root != null) {
-    		if (getData[0].compareTo(lower) >= 1 && getData[0].compareTo(upper) <= 1) {
+    		if (getData[0].compareTo(lower) >= 1 && 
+    				getData[0].compareTo(upper) <= 1) {
     			printRecursive(root.getLeft());
         		data += root.getData() + "\n";
         		printRecursive(root.getRight());

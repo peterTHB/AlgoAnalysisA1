@@ -32,7 +32,8 @@ public class SortStrings
 		String[] newArray = new String[array.length];
 		
 		for (int i = 0; i < array.length; i++) {
-			if (array[i].compareToIgnoreCase(lower) >= 1 && array[i].compareToIgnoreCase(upper) <= 1) {
+			if (array[i].compareToIgnoreCase(lower) >= 1 && 
+					array[i].compareToIgnoreCase(upper) <= 1) {
 				newArray[i] = array[i];
 			} else {
 				newArray[i] = "";
@@ -48,19 +49,59 @@ public class SortStrings
 		return list;
 	}
 	
+	public void sortLLAlpha(Node node) {
+		if (node != null) {
+			String[] getData = node.getData().split(":");
+			
+			if (node.getNext() != null) {
+				String[] getNext = node.getNext().getData().split(":");
+				
+				// if the next is bigger than current
+				if (getData[0].compareToIgnoreCase(getNext[0]) > 1) {
+					String temp = node.getNext().getData();
+					node.getNext().setData(node.getData());
+					node.setData(temp);
+				}
+				sortLLAlpha(node.getNext());
+			}
+		}
+	}
+	
+	public void sortLLInst(Node node) {
+		if (node != null) {
+			String[] getData = node.getData().split(":");
+			
+			if (node.getNext() != null) {
+				String[] getNext = node.getNext().getData().split(":");
+				
+				// if the next is bigger than current
+				if (Integer.parseInt(getData[1]) < Integer.parseInt(getNext[1])) {
+					String temp = node.getNext().getData();
+					node.getNext().setData(node.getData());
+					node.setData(temp);
+				}
+				sortLLInst(node.getNext());
+			}
+		}
+	}
+	
 	public String sortLinkedList() {
+		
 		return "";
 	}
 	
 	public String sortLLRange(String lower, String upper) {
+		
 		return "";
 	}
 	
 	public String sortOrderedList() {
+		
 		return "";
 	}
 	
 	public String sortOLRange(String lower, String upper) {
+		
 		return "";
 	}
 }

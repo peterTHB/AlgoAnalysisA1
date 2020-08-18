@@ -12,6 +12,8 @@ public class ArrayMultiset extends RmitMultiset
 {
 	private String[] array = null;
 	private int length = 1;
+	SortStrings sorter = new SortStrings();
+    
 	
     @Override
 	public void add(String elem) {
@@ -55,17 +57,13 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public int search(String elem) {
-    	int instance = 0;
+    	int instance = searchFailed;
     	
     	for (int i = 0; i < array.length; i++) {
     		String[] arrayString = array[i].split(":");
     		if (arrayString[0].equals(elem)) {
     			instance = Integer.parseInt(arrayString[1]);
     		}
-    	}
-    	
-    	if (instance == 0) {
-    		instance = searchFailed;
     	}
     	
         return instance;
@@ -135,8 +133,6 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public String print() {
-    	SortStrings sorter = new SortStrings();
-        
         String sorted = sorter.sortArray(array);
         
         return sorted;
@@ -145,8 +141,6 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public String printRange(String lower, String upper) {
-    	SortStrings sorter = new SortStrings();
-    	
     	String sorted = sorter.sortArrayRange(array, lower, upper);
     	
         // Placeholder, please update.

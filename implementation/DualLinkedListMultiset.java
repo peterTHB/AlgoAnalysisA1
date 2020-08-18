@@ -11,18 +11,41 @@ import java.util.List;
 public class DualLinkedListMultiset extends RmitMultiset
 {
 
+	private Node headAlpha;
+	private Node headInst;
+	private int length = 0;
+	private LinkedListHelps helper = new LinkedListHelps();
+	private SortStrings sorter = new SortStrings();
+	
     @Override
 	public void add(String item) {
-        // Implement me!
+    	int i = 0;
+    	int j = 0;
+    	
+        helper.addRecursive(headAlpha, item);
+        helper.addRecursive(headInst, item);
+        
+        length++;
+        
+        while (i < length) {
+        	sorter.sortLLAlpha(headAlpha);
+        	i++;
+        }
+        
+        while (j < length) {
+        	sorter.sortLLInst(headInst);
+        	j++;
+        }
     } // end of add()
 
 
     @Override
 	public int search(String item) {
-        // Implement me!
-
-        // Placeholder, please update.
-        return searchFailed;
+    	int instance = searchFailed;
+    	
+    	instance = helper.searchRecursive(headInst, item);
+        
+        return instance;
     } // end of search()
 
 
@@ -36,32 +59,45 @@ public class DualLinkedListMultiset extends RmitMultiset
 
     @Override
 	public boolean contains(String item) {
-        // Implement me!
+    	boolean check = false;
 
-        // Placeholder, please update.
-        return false;
+        check = helper.containsRecur(headInst, item);
+        
+        return check;
     } // end of contains()
 
 
     @Override
 	public void removeOne(String item) {
-        // Implement me!
+    	boolean checkAlpha = false;
+    	boolean checkInst = false;
+    	
+        checkAlpha = helper.removeHelp(headAlpha, item);
+        checkInst = helper.removeHelp(headInst, item);
+        
+        if (checkAlpha == true && checkInst == true) {
+        	length--;
+        }	
     } // end of removeOne()
 
 
     @Override
 	public String print() {
-
-        // Placeholder, please update.
-        return new String();
+    	String list = "";
+    	
+    	list = helper.printHelp(headInst);
+        
+        return list;
     } // end of OrderedPrint
 
 
     @Override
 	public String printRange(String lower, String upper) {
+    	String list = "";
 
-        // Placeholder, please update.
-        return new String();
+    	list = helper.printRangeHelp(headAlpha, lower, upper);
+    	
+        return list;
     } // end of printRange()
 
 
