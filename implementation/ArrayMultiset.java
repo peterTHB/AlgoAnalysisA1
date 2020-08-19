@@ -13,7 +13,7 @@ public class ArrayMultiset extends RmitMultiset
 	private String[] array = null;
 	private int length = 1;
 	SortStrings sorter = new SortStrings();
-    
+	
 	
     @Override
 	public void add(String elem) {
@@ -52,6 +52,8 @@ public class ArrayMultiset extends RmitMultiset
 	    		}
     		}
     	}
+    	
+    	
     } // end of add()
 
 
@@ -72,10 +74,9 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
     public List<String> searchByInstance(int instanceCount) {
+    	ListClass<String> listing = new ListClass<String>(array, instanceCount);
     	
-    	
-        // Placeholder, please update.
-        return null;
+        return listing;
     } // end of searchByInstance
 
 

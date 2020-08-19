@@ -51,9 +51,9 @@ public class DualLinkedListMultiset extends RmitMultiset
 
     @Override
 	public List<String> searchByInstance(int instanceCount) {
-
-        // Placeholder, please update.
-        return null;
+    	ListClass<String> listing = new ListClass<String>(headInst, instanceCount, 0);
+    	
+        return listing;
     } // end of searchByInstance    
 
 

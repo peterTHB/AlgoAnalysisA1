@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class BstMultiset extends RmitMultiset
 {
-	Node root;
+	private Node root;
 
     @Override
 	public void add(String item) {
@@ -57,6 +57,7 @@ public class BstMultiset extends RmitMultiset
         return instance;
     } // end of search()
     
+    
     private int searchRecursive(Node root, String data) {
     	int instance = searchFailed;
     	
@@ -79,9 +80,9 @@ public class BstMultiset extends RmitMultiset
 
     @Override
 	public List<String> searchByInstance(int instanceCount) {
-
-        // Placeholder, please update.
-        return null;
+    	ListClass<String> listing = new ListClass<String>(root, instanceCount, 0);
+    	
+        return listing;
     } // end of searchByInstance    
 
 
@@ -93,6 +94,7 @@ public class BstMultiset extends RmitMultiset
         
         return check;
     } // end of contains()
+    
     
     private boolean containsRecursive(Node root, String data) {
     	boolean check = false;

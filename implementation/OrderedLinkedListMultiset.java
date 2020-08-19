@@ -41,9 +41,9 @@ public class OrderedLinkedListMultiset extends RmitMultiset
 
     @Override
 	public List<String> searchByInstance(int instanceCount) {
-
-        // Placeholder, please update.
-        return null;
+    	ListClass<String> listing = new ListClass<String>(head, instanceCount, 1);
+    	
+        return listing;
     } // end of searchByInstance
 
 
