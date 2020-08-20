@@ -84,24 +84,4 @@ public class SortStrings
 			}
 		}
 	}
-	
-	public String sortLinkedList() {
-		
-		return "";
-	}
-	
-	public String sortLLRange(String lower, String upper) {
-		
-		return "";
-	}
-	
-	public String sortOrderedList() {
-		
-		return "";
-	}
-	
-	public String sortOLRange(String lower, String upper) {
-		
-		return "";
-	}
 }

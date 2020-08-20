@@ -14,7 +14,7 @@ public class DualLinkedListMultiset extends RmitMultiset
 	private Node headAlpha;
 	private Node headInst;
 	private int length = 0;
-	private LinkedListHelps helper = new LinkedListHelps();
+	private ListHelper helper = new ListHelper();
 	private SortStrings sorter = new SortStrings();
 	
     @Override
@@ -103,25 +103,37 @@ public class DualLinkedListMultiset extends RmitMultiset
 
     @Override
 	public RmitMultiset union(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newDllMultiSet = new DualLinkedListMultiset();
+    	String[] dllValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.unionList(newDllMultiSet, dllValues, otherValues);
+    	
+        return newDllMultiSet;
     } // end of union()
 
 
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newDllMultiSet = new DualLinkedListMultiset();
+    	String[] dllValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.intersectList(newDllMultiSet, dllValues, otherValues);
+    	
+        return newDllMultiSet;
     } // end of intersect()
 
 
     @Override
 	public RmitMultiset difference(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newDllMultiSet = new DualLinkedListMultiset();
+    	String[] dllValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.differenceList(newDllMultiSet, dllValues, otherValues);
+    	
+        return newDllMultiSet;
     } // end of difference()
 
 } // end of class DualLinkedListMultiset

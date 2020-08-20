@@ -13,7 +13,7 @@ public class ArrayMultiset extends RmitMultiset
 	private String[] array = null;
 	private int length = 1;
 	SortStrings sorter = new SortStrings();
-	
+	ListHelper helper = new ListHelper();
 	
     @Override
 	public void add(String elem) {
@@ -151,25 +151,37 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public RmitMultiset union(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newArrayMultiSet = new ArrayMultiset();
+    	String[] arrayValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.unionList(newArrayMultiSet, arrayValues, otherValues);
+    	
+        return newArrayMultiSet;
     } // end of union()
 
 
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newArrayMultiSet = new ArrayMultiset();
+    	String[] arrayValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.intersectList(newArrayMultiSet, arrayValues, otherValues);
+    	
+        return newArrayMultiSet;
     } // end of intersect()
 
 
     @Override
 	public RmitMultiset difference(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newArrayMultiSet = new ArrayMultiset();
+    	String[] arrayValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.differenceList(newArrayMultiSet, arrayValues, otherValues);
+    	
+        return newArrayMultiSet;
     } // end of difference()
 
 } // end of class ArrayMultiset

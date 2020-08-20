@@ -1,6 +1,6 @@
 package implementation;
 
-public class LinkedListHelps
+public class ListHelper
 {
 	public void addRecursive(Node node, String data) {
     	if (node == null) {
@@ -107,6 +107,73 @@ public class LinkedListHelps
     	}
     	
         return list;
+	}
+	
+	public void unionList(RmitMultiset multiSet, String[] currList, String[] otherList) {
+		for (int i = 0; i < currList.length; i++) {
+    		String[] getDataArray = currList[i].split(":");
+    		
+    		String data = getDataArray[0];
+    		int amount = Integer.parseInt(getDataArray[1]);
+    		
+    		for (int j = 0; j < amount; j++) {
+    			multiSet.add(data);
+    		}
+    	}
+    	
+    	for (int i = 0; i < otherList.length; i++) {
+    		String[] getDataOther = otherList[i].split(":");
+    		
+    		String data = getDataOther[0];
+    		int amount = Integer.parseInt(getDataOther[1]);
+    		
+    		for (int j = 0; j < amount; j++) {
+    			multiSet.add(data);
+    		}
+    	}
+	}
+	
+	public void intersectList(RmitMultiset multiSet, String[] currList, String[] otherList) {
+		for (int i = 0; i < currList.length; i++) {
+    		String[] getDataArray = currList[i].split(":");
+    		
+    		for (int j = 0; j < otherList.length; j++) {
+    			String[] getDataOther = otherList[i].split(":");
+    			
+    			if (getDataArray[0].equals(getDataOther[0])) {
+    				int amount = Integer.parseInt(getDataArray[1]);
+    				
+    				for (int k = 0; k < amount; k++) {
+    					multiSet.add(getDataArray[0]);
+    				}
+    				
+    			}
+    			
+    		}
+    	}
+	}
+	
+	public void differenceList(RmitMultiset multiSet, String[] currList, String[] otherList) {
+		for (int i = 0; i < currList.length; i++) {
+    		boolean check = false;
+    		String[] getDataArray = currList[i].split(":");
+    		
+    		for (int j = 0; j < otherList.length; j++) {
+    			String[] getDataOther = otherList[j].split(":");
+    			
+    			if (getDataOther.equals(otherList)) {
+    				check = true;
+    			}
+    		}
+    		
+    		if (check == false) {
+    			int amount = Integer.parseInt(getDataArray[1]);
+    			
+    			for (int k = 0; k < amount; k++) {
+    				multiSet.add(getDataArray[0]);
+    			}
+    		}
+    	}
 	}
 	
 }

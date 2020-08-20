@@ -13,7 +13,7 @@ public class OrderedLinkedListMultiset extends RmitMultiset
 
 	private Node head;
 	private int length = 0;
-	private LinkedListHelps helper = new LinkedListHelps();
+	private ListHelper helper = new ListHelper();
 	private SortStrings sorter = new SortStrings();
 	
     @Override
@@ -100,25 +100,37 @@ public class OrderedLinkedListMultiset extends RmitMultiset
 
     @Override
 	public RmitMultiset union(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newOllMultiSet = new OrderedLinkedListMultiset();
+    	String[] ollValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.unionList(newOllMultiSet, ollValues, otherValues);
+    	
+        return newOllMultiSet;
     } // end of union()
 
 
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newOllMultiSet = new OrderedLinkedListMultiset();
+    	String[] ollValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.intersectList(newOllMultiSet, ollValues, otherValues);
+    	
+        return newOllMultiSet;
     } // end of intersect()
 
 
     @Override
 	public RmitMultiset difference(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newOllMultiSet = new OrderedLinkedListMultiset();
+    	String[] ollValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.differenceList(newOllMultiSet, ollValues, otherValues);
+    	
+        return newOllMultiSet;
     } // end of difference()
 
 } // end of class OrderedLinkedListMultiset

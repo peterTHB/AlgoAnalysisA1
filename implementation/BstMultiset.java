@@ -11,6 +11,7 @@ import java.util.List;
 public class BstMultiset extends RmitMultiset
 {
 	private Node root;
+	ListHelper helper = new ListHelper();
 
     @Override
 	public void add(String item) {
@@ -193,25 +194,37 @@ public class BstMultiset extends RmitMultiset
 
     @Override
 	public RmitMultiset union(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newBstMultiSet = new BstMultiset();
+    	String[] bstValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.unionList(newBstMultiSet, bstValues, otherValues);
+    	
+        return newBstMultiSet;
     } // end of union()
 
 
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newBstMultiSet = new BstMultiset();
+    	String[] bstValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.intersectList(newBstMultiSet, bstValues, otherValues);
+    	
+        return newBstMultiSet;
     } // end of intersect()
 
 
     @Override
 	public RmitMultiset difference(RmitMultiset other) {
-
-        // Placeholder, please update.
-        return null;
+    	RmitMultiset newBstMultiSet = new BstMultiset();
+    	String[] bstValues = this.print().split("\n");
+    	String[] otherValues = other.print().split("\n");
+    	
+    	helper.differenceList(newBstMultiSet, bstValues, otherValues);
+    	
+        return newBstMultiSet;
     } // end of difference()
 
 } // end of class BstMultiset
