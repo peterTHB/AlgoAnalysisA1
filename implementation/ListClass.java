@@ -49,7 +49,7 @@ public class ListClass<Type> extends LinkedList<Type> implements Iterable<Type>
 				current = current.getNext();
 			}
 			addBST(node.getLeft(), count);
-			addBST(node.getNext(), count);
+			addBST(node.getRight(), count);
 		}
 	}
 	

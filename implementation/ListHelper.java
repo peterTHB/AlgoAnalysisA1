@@ -2,52 +2,70 @@ package implementation;
 
 public class ListHelper
 {
-	public void addRecursive(Node node, String data) {
+	public Node addHelp(Node node, String data) {
+		Node temp = new Node(data + ":1", null);
+    	Node curr = node;
+    	Node prev = null;
+    	
     	if (node == null) {
-        	data += ":1";
-        	node = new Node(data, null);
-        } else {
-        	String[] getData = node.getData().split(":");
-        	int instance = 0;
-        	if (getData[0].equals(data)) {
-        		instance = Integer.getInteger(getData[1]) + 1;
-        		String newData = data + ":" + instance;
-        		node.setData(newData);
-        	} else if (node.getNext() == null) {
-        		data += ":1";
-        		Node newNode = new Node(data, null);
-        		node.setNext(newNode);
-        	} else {
-        		addRecursive(node.getNext(), data);
+    		node = temp;
+    	} else {
+    		boolean check = false;
+    		
+    		while (curr != null) {
+    			String[] getData = curr.getData().split(":");
+    			
+    			if (getData[0].equals(data)) {
+    				int instance = Integer.parseInt(getData[1]) + 1;
+    				curr.setData(data + ":" + instance);
+    				check = true;
+    			}
+    			prev = curr;
+    			curr = curr.getNext();
         	}
-        }
-    }
+    		if (check == false) {
+    			prev.setNext(temp);
+    		}
+    	}
+    	
+    	return node;
+	}	
 	
-	public boolean removeHelp(Node root, String data) {
-		boolean check = false;
+	public int getLength(Node root) {
+		int length = 0;
 		
+		while (root != null) {
+			length++;
+			root = root.getNext();
+		}
+		
+		return length;
+	}
+    	
+	public Node removeHelp(Node root, String data) {
 		Node curr = root;
-        Node prev = null;
+		Node prev = null;
         
-        if (curr != null) {
+        while (curr.getNext() != null) {
         	String[] getData = curr.getData().split(":");
         	
         	if (getData[0].equals(data)) {
-    			root = curr.getNext();
-    		} else {
-    			while (curr != null && curr.getData().split(":")[0] != data) {
-    				prev = curr;
-    				curr = curr.getNext();
-    			}
-    			
-    			if (curr != null) {
-    				prev.setNext(curr.getNext());
-    				check = true;
-    			}
-    		}
+        		if (Integer.parseInt(getData[1]) > 1) {
+        			int newInstance = Integer.parseInt(getData[1]) - 1;
+        			curr.setData(getData[0] + ":" + newInstance);
+        		} else if (Integer.parseInt(getData[1]) == 1) {
+        			if (curr.getNext() != null) {
+        				prev.setNext(curr.getNext());
+        			} else {
+        				prev.setNext(null);
+        			}
+        		} 
+    		} 
+        	prev = curr;
+			curr = curr.getNext();
         }
 		
-		return check;
+		return root;
 	}
 	
 	public int searchRecursive(Node node, String data) {
@@ -58,7 +76,7 @@ public class ListHelper
     		if (getData[0].equals(data)) {
     			instance = Integer.parseInt(getData[1]);
     		} else {
-    			searchRecursive(node.getNext(), data);
+    			instance = searchRecursive(node.getNext(), data);
     		}
     	}
     	
@@ -73,18 +91,18 @@ public class ListHelper
     		if (getData[0].equals(data)) {
     			check = true;
     		} else {
-    			searchRecursive(node.getNext(), data);
+    			check = containsRecur(node.getNext(), data);
     		}
     	}
     	
         return check;
     }
 	
-	public String printHelp(Node root) {
+	public String printHelp(Node root, int length) {
 		String list = "";
     	Node node = root;
     	
-    	while (node.getData() != null) {
+    	while (node != null) {
     		list += node.getData() + "\n";
     		node = node.getNext();
     	}
@@ -96,14 +114,14 @@ public class ListHelper
 		String list = "";
     	Node node = root;
     	
-    	while (node.getData() != null) {
+    	while (node != null) {
     		String[] getData = node.getData().split(":");
     		
-    		if (getData[0].compareToIgnoreCase(lower) >= 1 && 
-    				getData[0].compareToIgnoreCase(upper) <= 1) {
+    		if (getData[0].compareToIgnoreCase(lower) >= 0 && 
+    				getData[0].compareToIgnoreCase(upper) <= 0) {
     			list += node.getData() + "\n";
-        		node = node.getNext();
     		}
+    		node = node.getNext();
     	}
     	
         return list;
@@ -138,13 +156,24 @@ public class ListHelper
     		String[] getDataArray = currList[i].split(":");
     		
     		for (int j = 0; j < otherList.length; j++) {
-    			String[] getDataOther = otherList[i].split(":");
+    			String[] getDataOther = otherList[j].split(":");
     			
     			if (getDataArray[0].equals(getDataOther[0])) {
-    				int amount = Integer.parseInt(getDataArray[1]);
+    				int amountArray = Integer.parseInt(getDataArray[1]);
+    				int amountOther = Integer.parseInt(getDataOther[1]);
     				
-    				for (int k = 0; k < amount; k++) {
-    					multiSet.add(getDataArray[0]);
+    				if (amountArray < amountOther) {
+    					for (int k = 0; k < amountArray; k++) {
+        					multiSet.add(getDataArray[0]);
+        				}
+    				} else if (amountOther < amountArray) {
+    					for (int l = 0; l < amountOther; l++) {
+        					multiSet.add(getDataOther[0]);
+        				}
+    				} else {
+    					for (int k = 0; k < amountArray; k++) {
+        					multiSet.add(getDataArray[0]);
+        				}
     				}
     				
     			}
@@ -155,20 +184,28 @@ public class ListHelper
 	
 	public void differenceList(RmitMultiset multiSet, String[] currList, String[] otherList) {
 		for (int i = 0; i < currList.length; i++) {
-    		boolean check = false;
+    		int getOtherInstance = 0;
+    		int amount = 0;
     		String[] getDataArray = currList[i].split(":");
     		
     		for (int j = 0; j < otherList.length; j++) {
     			String[] getDataOther = otherList[j].split(":");
     			
-    			if (getDataOther.equals(otherList)) {
-    				check = true;
+    			if (getDataOther[0].equals(getDataArray[0])) {
+    				getOtherInstance = Integer.parseInt(getDataOther[1]);
     			}
     		}
     		
-    		if (check == false) {
-    			int amount = Integer.parseInt(getDataArray[1]);
+    		if (getOtherInstance != 0) {
+    			amount = Integer.parseInt(getDataArray[1]) - getOtherInstance;
     			
+    			if (amount > 0) {
+    				for (int k = 0; k < amount; k++) {
+        				multiSet.add(getDataArray[0]);
+        			}
+    			}
+    		} else {
+    			amount = Integer.parseInt(getDataArray[1]);
     			for (int k = 0; k < amount; k++) {
     				multiSet.add(getDataArray[0]);
     			}

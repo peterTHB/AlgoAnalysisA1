@@ -11,48 +11,45 @@ import java.util.List;
 public class ArrayMultiset extends RmitMultiset
 {
 	private String[] array = null;
-	private int length = 1;
+	private final static int INITIAL_LENGTH = 1;
 	SortStrings sorter = new SortStrings();
 	ListHelper helper = new ListHelper();
 	
     @Override
 	public void add(String elem) {
     	int instance = 1;
-    	int position = -1;
-    	// Add string:instance
+    	boolean check = false;
+
     	if (array == null) {
-    		array = new String[length];
-    		array[length - 1] = elem + ":" + Integer.toString(instance); 
+    		array = new String[INITIAL_LENGTH];
+    		array[INITIAL_LENGTH  - 1] = elem + ":" + Integer.toString(instance); 
     	} else {
-    		length++;
-    		
+    		int length = array.length + 1;
     		String[] newArray = new String[length];
     		
-    		for (int i = 0; i < length; i++) {
+    		for (int i = 0; i < array.length; i++) {
     			String[] arrayString = array[i].split(":");
-    			if (arrayString[0] == elem) {
-    				position = i;
+    			if (arrayString[0].equals(elem)) {
     				instance = Integer.parseInt(arrayString[1]) + 1;
+    				array[i] = elem + ":" + instance;
+    				check = true;
     			}
     		}
     		
-    		if (position != -1) {
-    			array[position] = elem + ":" + instance;
-    		} else {
-	        	for (int i = 0; i < length - 1; i++) {
-	    			newArray[i] = array[i];
-	    		}
-	    		
-	    		newArray[length - 1] = elem + ":" + instance;
-	    		
-	    		array = new String[length];
-	    		
-	    		for (int j = 0; j < length; j++) {
-	    			array[j] = newArray[j];
-	    		}
+    		if (check == false) {
+    			for (int i = 0; i < length - 1; i++) {
+        			newArray[i] = array[i];
+        		}
+        		
+        		newArray[length - 1] = elem + ":" + instance;
+        		
+        		array = new String[length];
+        		
+        		for (int j = 0; j < length; j++) {
+        			array[j] = newArray[j];
+        		}
     		}
     	}
-    	
     	
     } // end of add()
 
@@ -98,35 +95,42 @@ public class ArrayMultiset extends RmitMultiset
 
     @Override
 	public void removeOne(String elem) {
-    	int position = 0;
+    	boolean check = false;
     	
         if (array != null) {
         	for (int i = 0; i < array.length; i++) {
-        		if (array[i].equals(elem)) {
-        			position = i;
+        		String[] getData = array[i].split(":");
+        		if (getData[0].equals(elem)) {
+        			if (Integer.parseInt(getData[1]) > 1) {
+        				int newInstance = Integer.parseInt(getData[1]) - 1;
+        				array[i] = getData[0] + ":" + newInstance;
+        			} else {
+        				array[i] = null;
+            			check = true;
+        			}
         		}
         	}
         	
-        	length--;
+        	if (check == true) {
+        		int length = array.length - 1;
+            	int iterate = 0;
+            	
+            	String[] newArray = new String[length];
+                
+                for (int j = 0; j < array.length; j++) {
+                	if (array[j] != null) {
+                		newArray[iterate] = array[j];
+                		iterate++;
+                	}
+                }
+                
+                array = new String[length];
+                
+                for (int k = 0; k < array.length; k++) {
+                	array[k] = newArray[k];
+                }
+        	}
         	
-        	array[position] = null;
-        	
-        	String[] newArray = new String[length];
-        	
-        	int iterate = 0;
-            
-            for (int j = 0; j < newArray.length; j++) {
-            	if (array[j] != null) {
-            		newArray[iterate] = array[j];
-            		iterate++;
-            	}
-            }
-            
-            array = new String[length];
-            
-            for (int k = 0; k < array.length; k++) {
-            	array[k] = newArray[k];
-            }
         }
         
     } // end of removeOne()

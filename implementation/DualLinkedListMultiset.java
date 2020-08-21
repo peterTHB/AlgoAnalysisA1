@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class DualLinkedListMultiset extends RmitMultiset
 {
-
 	private Node headAlpha;
 	private Node headInst;
 	private int length = 0;
@@ -22,17 +21,17 @@ public class DualLinkedListMultiset extends RmitMultiset
     	int i = 0;
     	int j = 0;
     	
-        helper.addRecursive(headAlpha, item);
-        helper.addRecursive(headInst, item);
+        headAlpha = helper.addHelp(headAlpha, item);
+        headInst = helper.addHelp(headInst, item);
         
         length++;
         
-        while (i < length) {
+        while (i < length - 1) {
         	sorter.sortLLAlpha(headAlpha);
         	i++;
         }
         
-        while (j < length) {
+        while (j < length - 1) {
         	sorter.sortLLInst(headInst);
         	j++;
         }
@@ -69,15 +68,10 @@ public class DualLinkedListMultiset extends RmitMultiset
 
     @Override
 	public void removeOne(String item) {
-    	boolean checkAlpha = false;
-    	boolean checkInst = false;
-    	
-        checkAlpha = helper.removeHelp(headAlpha, item);
-        checkInst = helper.removeHelp(headInst, item);
+        headAlpha = helper.removeHelp(headAlpha, item);
+        headInst = helper.removeHelp(headInst, item);
         
-        if (checkAlpha == true && checkInst == true) {
-        	length--;
-        }	
+        length = helper.getLength(headInst);
     } // end of removeOne()
 
 
@@ -85,7 +79,7 @@ public class DualLinkedListMultiset extends RmitMultiset
 	public String print() {
     	String list = "";
     	
-    	list = helper.printHelp(headInst);
+    	list = helper.printHelp(headInst, length);
         
         return list;
     } // end of OrderedPrint

@@ -10,42 +10,41 @@ import java.util.List;
  */
 public class BstMultiset extends RmitMultiset
 {
-	private Node root;
-	ListHelper helper = new ListHelper();
+	private Node root = null;
+	private ListHelper helper = new ListHelper();
 
     @Override
 	public void add(String item) {
-    	addRecursive(root, item);
+    	root = addRecursive(root, item);
     } // end of add()
     
-    private void addRecursive(Node root, String data) {
-    	String getData;
+    private Node addRecursive(Node root, String data) {
     	String[] splitData;
     	
     	if (root == null) {
     		data += ":1";
     		root = new Node(data, null, null);
     	} else {
-    		getData = root.getData();
-    		splitData = getData.split(":");
+    		splitData = root.getData().split(":");
     		
     		// positive is lower, negative is higher
         	if (data.compareToIgnoreCase(splitData[0]) == 0) {
         		if (!data.equals(splitData[0])) {
-        			addRecursive(root.getLeft(), data);
+        			root.setLeft(addRecursive(root.getLeft(), data));
         		} else {
         			String[] newData = root.getData().split(":");
-            		newData[1] += 1;
-            		root.setData(newData[0] + newData[1]);
+        			int instance = Integer.parseInt(newData[1]) + 1; 
+            		root.setData(newData[0] + ":" + instance);
         		}
         	// if data is greater 
-        	} else if (data.compareToIgnoreCase(splitData[1]) > 1) {
-        		addRecursive(root.getRight(), data);
+        	} else if (data.compareToIgnoreCase(splitData[0]) > 0) {
+        		root.setRight(addRecursive(root.getRight(), data));
         	// if data is less
-        	} else if (data.compareToIgnoreCase(splitData[1]) < 1) {
-        		addRecursive(root.getLeft(), data);
+        	} else if (data.compareToIgnoreCase(splitData[0]) < 0) {
+        		root.setLeft(addRecursive(root.getLeft(), data));
         	}
     	}
+    	return root;
     }
 
 
@@ -129,7 +128,12 @@ public class BstMultiset extends RmitMultiset
     		String[] getData = root.getData().split(":");
     		
     		if (getData[0].equals(data)) {
-    			root.setData(null);
+    			if (Integer.parseInt(getData[1]) > 1) {
+    				int newInstance = Integer.parseInt(getData[1]) - 1;
+    				root.setData(getData[0] + ":" + newInstance);
+    			} else {
+    				root.setData(null);
+    			}
     		} else {
     			if (root.getLeft() != null) {
         			removeRecursive(root.getLeft(), data);
@@ -155,9 +159,9 @@ public class BstMultiset extends RmitMultiset
     	String data = "";
     	
     	if (root != null) {
-    		printRecursive(root.getLeft());
+    		data += printRecursive(root.getLeft());
     		data += root.getData() + "\n";
-    		printRecursive(root.getRight());
+    		data += printRecursive(root.getRight());
     	}
     	
     	return data;
@@ -177,15 +181,15 @@ public class BstMultiset extends RmitMultiset
     private String printRangeRecur(Node root, String lower, String upper) {
     	String data = "";
     	
-    	String[] getData = root.getData().split(":");
-    	
     	if (root != null) {
-    		if (getData[0].compareTo(lower) >= 1 && 
-    				getData[0].compareTo(upper) <= 1) {
-    			printRecursive(root.getLeft());
+    		String[] getData = root.getData().split(":");
+    		
+    		data += printRangeRecur(root.getLeft(), lower, upper);
+    		if (getData[0].compareToIgnoreCase(lower) >= 0 && 
+    				getData[0].compareToIgnoreCase(upper) <= 0) {
         		data += root.getData() + "\n";
-        		printRecursive(root.getRight());
     		}
+    		data += printRangeRecur(root.getRight(), lower, upper);
     	}
     	
     	return data;

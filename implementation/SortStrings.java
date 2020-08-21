@@ -5,8 +5,8 @@ public class SortStrings
 	public String sortArray(String[] array) {
 		String list = "";
 		
-		for (int i = 0; i < array.length; i++) {
-			if (array[i + 1] != null || i != array.length) {
+		for (int k = 0; k < array.length - 1; k++) {
+			for (int i = 0; i < array.length - 1; i++) {
 				String[] string1 = array[i].split(":");
 				String[] string2 = array[i + 1].split(":");
 				
@@ -17,8 +17,8 @@ public class SortStrings
 					array[i] = spot2;
 					array[i + 1] = spot1;
 				}
-			}
-        }
+	        }
+		}
 		
 		for (int j = 0; j < array.length; j++) {
 			list += array[j] + "\n";
@@ -29,21 +29,13 @@ public class SortStrings
 	
 	public String sortArrayRange(String[] array, String lower, String upper) {
 		String list = "";
-		String[] newArray = new String[array.length];
 		
 		for (int i = 0; i < array.length; i++) {
-			if (array[i].compareToIgnoreCase(lower) >= 1 && 
-					array[i].compareToIgnoreCase(upper) <= 1) {
-				newArray[i] = array[i];
-			} else {
-				newArray[i] = "";
-			}
-		}
-		
-		for (int j = 0; j < newArray.length; j++) {
-			if (!newArray[j].equals("")) {
-				list += newArray[j] + "\n";
-			}
+			String[] getData = array[i].split(":");
+			if (getData[0].compareToIgnoreCase(lower) >= 0 && 
+					getData[0].compareToIgnoreCase(upper) <= 0) {
+				list += array[i] + "\n";
+			} 
 		}
 		
 		return list;
@@ -57,7 +49,7 @@ public class SortStrings
 				String[] getNext = node.getNext().getData().split(":");
 				
 				// if the next is bigger than current
-				if (getData[0].compareToIgnoreCase(getNext[0]) > 1) {
+				if (getData[0].compareToIgnoreCase(getNext[0]) > 0) {
 					String temp = node.getNext().getData();
 					node.getNext().setData(node.getData());
 					node.setData(temp);

@@ -19,10 +19,11 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     @Override
 	public void add(String item) {
     	int i = 0;
-        helper.addRecursive(head, item);
-        length++;
+    	head = helper.addHelp(head, item);
+    	
+    	length = helper.getLength(head);
         
-        while (i < length) {
+        while (i < length - 1) {
         	sorter.sortLLAlpha(head);
         	i++;
         }
@@ -59,12 +60,9 @@ public class OrderedLinkedListMultiset extends RmitMultiset
 
     @Override
 	public void removeOne(String item) {
-        boolean check = false;
-        check = helper.removeHelp(head, item);
+        head = helper.removeHelp(head, item);
         
-        if (check == true) {
-        	length--;
-        }
+        length = helper.getLength(head);
     } // end of removeOne()
     
 
@@ -74,12 +72,14 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     	int i = 0;
     	int j = 0;
     	
-    	while (i < length) {
+    	while (i < length - 1) {
     		sorter.sortLLInst(head);
     		i++;
     	}
-    	list = helper.printHelp(head);
-    	while (j < length) {
+    	
+    	list = helper.printHelp(head, length);
+    	
+    	while (j < length - 1) {
     		sorter.sortLLAlpha(head);
     		j++;
     	}

@@ -1,0 +1,5 @@
+# contains B
+-1
+> not enough tokens.
+# contains s1 B
+B is in multiset
