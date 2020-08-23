@@ -1,11 +1,2 @@
-# print s3
-B:1
-C:1
-# print s4
-A:2
-# print s5
-A:1
-# print s6
-A:4
-B:1
-C:1
+# searchByInstance s1 2
+A,B
