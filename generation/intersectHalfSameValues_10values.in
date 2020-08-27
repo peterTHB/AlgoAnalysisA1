@@ -1,0 +1,23 @@
+create s1
+create s2
+add s1 Q
+add s1 w
+add s1 E
+add s1 r
+add s1 T
+add s1 y
+add s1 U
+add s1 i
+add s1 O
+add s1 p
+add s2 Q
+add s2 W
+add s2 E
+add s2 R
+add s2 T
+add s2 Y
+add s2 U
+add s2 I
+add s2 O
+add s2 P
+intersect s1 s2 s3

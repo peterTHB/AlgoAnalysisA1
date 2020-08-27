@@ -21,16 +21,19 @@ public class DualLinkedListMultiset extends RmitMultiset
     	int i = 0;
     	int j = 0;
     	
+    	// Helper class to add a new node
         headAlpha = helper.addHelp(headAlpha, item);
         headInst = helper.addHelp(headInst, item);
         
         length++;
         
+        // Sorts first list into alphabetical order
         while (i < length - 1) {
         	sorter.sortLLAlpha(headAlpha);
         	i++;
         }
         
+        // Sorts second list into instance order
         while (j < length - 1) {
         	sorter.sortLLInst(headInst);
         	j++;
@@ -68,10 +71,12 @@ public class DualLinkedListMultiset extends RmitMultiset
 
     @Override
 	public void removeOne(String item) {
+    	
         headAlpha = helper.removeHelp(headAlpha, item);
         headInst = helper.removeHelp(headInst, item);
         
         length = helper.getLength(headInst);
+        
     } // end of removeOne()
 
 
@@ -80,7 +85,7 @@ public class DualLinkedListMultiset extends RmitMultiset
     	String list = "";
     	
     	list = helper.printHelp(headInst, length);
-        
+
         return list;
     } // end of OrderedPrint
 
@@ -110,11 +115,12 @@ public class DualLinkedListMultiset extends RmitMultiset
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
     	RmitMultiset newDllMultiSet = new DualLinkedListMultiset();
+    	
     	String[] dllValues = this.print().split("\n");
     	String[] otherValues = other.print().split("\n");
     	
     	helper.intersectList(newDllMultiSet, dllValues, otherValues);
-    	
+
         return newDllMultiSet;
     } // end of intersect()
 

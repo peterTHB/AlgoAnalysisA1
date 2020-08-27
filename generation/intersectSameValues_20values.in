@@ -1,0 +1,43 @@
+create s1
+create s2
+add s1 Q
+add s1 W
+add s1 E
+add s1 R
+add s1 T
+add s1 Y
+add s1 U
+add s1 I
+add s1 O
+add s1 P
+add s1 A
+add s1 S
+add s1 D
+add s1 F
+add s1 G
+add s1 H
+add s1 J
+add s1 K
+add s1 L
+add s1 Z
+add s2 Q
+add s2 W
+add s2 E
+add s2 R
+add s2 T
+add s2 Y
+add s2 U
+add s2 I
+add s2 O
+add s2 P
+add s2 A
+add s2 S
+add s2 D
+add s2 F
+add s2 G
+add s2 H
+add s2 J
+add s2 K
+add s2 L
+add s2 Z
+intersect s1 s2 s3

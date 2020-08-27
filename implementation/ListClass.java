@@ -2,16 +2,23 @@ package implementation;
 
 import java.util.*;
 
+/*
+ * Personal list class to implement a linked list class
+ * to help iterate through a list.
+ * Contains the ability to use all multisets.
+ */
 @SuppressWarnings("serial")
 public class ListClass<Type> extends LinkedList<Type> implements Iterable<Type>
 {
 	private Node head;
 	
+	// Constructor call for array
 	public ListClass(String[] array, int count) {
 		head = new Node(null, null);
 		addArray(array, count);
 	}
 	
+	// Constructor call for all node classes
 	public ListClass(Node node, int count, int check) {
 		head = new Node(null, null);
 		Node current = head;
@@ -22,6 +29,7 @@ public class ListClass<Type> extends LinkedList<Type> implements Iterable<Type>
 		}
 	}
 	
+	// Method to add array elements to linked list implementation
 	private void addArray(String[] array, int count) {
 		Node current = head;
 
@@ -36,6 +44,7 @@ public class ListClass<Type> extends LinkedList<Type> implements Iterable<Type>
 		}
 	}
 	
+	// Method to add linked list nodes to linked list implementation
 	private void addNode(Node current, Node enter, int count) {
 		while (enter.getNext() != null) {
 			String[] currString = enter.getData().split(":");
@@ -49,6 +58,8 @@ public class ListClass<Type> extends LinkedList<Type> implements Iterable<Type>
 		}
 	}
 	
+	// Method to add binary search tree nodes to linked list 
+	// implementation
 	private void addBST(Node current, Node enter, int count) {
 		if (enter != null) {
 			String[] currString = enter.getData().split(":");

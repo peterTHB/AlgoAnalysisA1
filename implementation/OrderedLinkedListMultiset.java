@@ -10,7 +10,6 @@ import java.util.List;
  */
 public class OrderedLinkedListMultiset extends RmitMultiset
 {
-
 	private Node head;
 	private int length = 0;
 	private ListHelper helper = new ListHelper();
@@ -19,10 +18,14 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     @Override
 	public void add(String item) {
     	int i = 0;
+    	
+    	// Helper method to add new node
     	head = helper.addHelp(head, item);
     	
+    	// Get length of list to help sort list
     	length = helper.getLength(head);
         
+    	// Sorts list into alphabetical order
         while (i < length - 1) {
         	sorter.sortLLAlpha(head);
         	i++;
@@ -71,7 +74,8 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     	String list = "";
     	int i = 0;
     	int j = 0;
-    	
+
+    	// Sorts list into instance order
     	while (i < length - 1) {
     		sorter.sortLLInst(head);
     		i++;
@@ -79,6 +83,8 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     	
     	list = helper.printHelp(head, length);
     	
+    	// Sorts list into alphabetical order after
+    	// list has been compiled to be printed
     	while (j < length - 1) {
     		sorter.sortLLAlpha(head);
     		j++;
@@ -113,6 +119,7 @@ public class OrderedLinkedListMultiset extends RmitMultiset
     @Override
 	public RmitMultiset intersect(RmitMultiset other) {
     	RmitMultiset newOllMultiSet = new OrderedLinkedListMultiset();
+
     	String[] ollValues = this.print().split("\n");
     	String[] otherValues = other.print().split("\n");
     	

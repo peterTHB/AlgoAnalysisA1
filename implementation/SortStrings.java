@@ -1,7 +1,13 @@
 package implementation;
 
+/*
+ * Auxiliary class to help sort elements in each multiset
+ * according to the specifications(either alphabetical or
+ * instance).
+ */
 public class SortStrings
 {
+	// Sorts array elements into instance order
 	public String sortArray(String[] array) {
 		String list = "";
 		
@@ -27,6 +33,8 @@ public class SortStrings
 		return list;
 	}
 	
+	// Takes elements between a certain range and returns them
+	// as a string
 	public String sortArrayRange(String[] array, String lower, String upper) {
 		String list = "";
 		
@@ -41,6 +49,7 @@ public class SortStrings
 		return list;
 	}
 	
+	// Sorts a linked list into alphabetical order
 	public void sortLLAlpha(Node node) {
 		if (node != null) {
 			String[] getData = node.getData().split(":");
@@ -59,6 +68,7 @@ public class SortStrings
 		}
 	}
 	
+	// Sorts a linked list into instance order
 	public void sortLLInst(Node node) {
 		if (node != null) {
 			String[] getData = node.getData().split(":");

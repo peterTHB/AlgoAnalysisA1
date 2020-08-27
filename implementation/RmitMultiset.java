@@ -112,5 +112,4 @@ public abstract class RmitMultiset
 	 * @return New multiset that results from taking the difference between this and other multiset.
 	 */
 	public abstract RmitMultiset difference(RmitMultiset other);
-
 } // end of abstract class RmitMultiset

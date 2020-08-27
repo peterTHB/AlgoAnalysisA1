@@ -1,16 +1,21 @@
 package implementation;
 
+/*
+ * Node class for the BST and linked lists implementations
+ */
 public class Node
 {
 	private String data;
 	private Node left, right, next;
 	
+	// Node for the BST implementation
 	public Node(String data, Node left, Node right) {
 		this.data = data;
 		this.left = left;
 		this.right = right;
 	}
 	
+	// Node for the linked lists implementations
 	public Node(String data, Node next) {
 		this.data = data;
 		this.next = next;

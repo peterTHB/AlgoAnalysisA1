@@ -1,0 +1,11 @@
+create s1
+add s1 Q
+add s1 W
+add s1 E
+add s1 R
+add s1 T
+removeOne s1 Q
+removeOne s1 W
+removeOne s1 E
+removeOne s1 R
+removeOne s1 T
